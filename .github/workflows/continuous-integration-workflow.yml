@@ -8,29 +8,28 @@ jobs:
     steps:
     - uses: actions/checkout@v2 # Adds a step to checkout the repository code
 
-    - name: Build C# code
+    - name: Build C# Code
       run: dotnet build
 
-    - name: Run C# tests
+    - name: Run C# Tests
       run: dotnet test
 
-    - name: Build TypeScript code
+    - name: Build TypeScript Code
       run: cd DotnetTemplate.Web && npm install && npm run build
 
-    - name: Run TypeScript linter
+    - name: Run TypeScript Linter
       run: cd DotnetTemplate.Web && npm run lint
 
     - name: Run TypeScript Tests
       run: cd DotnetTemplate.Web && npm t
 
-    - name: Send Slack Notification
+    - name: Send Build Result to Slack
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
       with:
-        # For posting a rich message using Block Kit
         payload: |
           {
-            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+            "text": "GitHub Action build results: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
             "blocks": [
               {
                 "type": "section",
