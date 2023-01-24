@@ -16,3 +16,6 @@ jobs:
 
     - name: Build TypeScript code
       run: cd DotnetTemplate.Web && npm install && npm run build
+
+    - name: Run TypeScript linter
+      run: cd DotnetTemplate.Web && npm run lint
